@@ -64,4 +64,17 @@ foo2
 
 (length1 '(1,2,3,4,5))
 
+;; Higher order functions from cheat sheet
+;; compose: takes two functions and arg, return (f (g x))
+(define compose 
+  (lambda (f g x)
+    (f (g x))))
+(compose even? (lambda (x) (- x 1)) 10) ;;  => #f
 
+;; takes a function and applies it to every element of a list
+(define map 
+  (lambda (f a-list)
+    (cond ((null? a-list) a-list)
+	  (#t (cons (f (car a-list)) (map f (cdr a-list)))))))
+
+(map even? '(1 2 3 4))        ;;=> (#f #t #f #t)
