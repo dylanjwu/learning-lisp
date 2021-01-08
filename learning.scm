@@ -21,11 +21,11 @@
 ;; anonymous function
 (lambda (x) (* x x))
 
-(equal? '(1,2) '(1,2)) ;;if look the same, true
-(eq? '(1,2) '(1,2)) ;;compare objects, false
+(equal? '(1 2) '(1 2)) ;;if look the same, true
+(eq? '(1 2) '(1 2)) ;;compare objects, false
 
 ;;quoting
-(define foo '(1,2,3))
+(define foo '(1 2 3))
 foo
 
 ;; make list w/ cons:
@@ -40,7 +40,7 @@ foo2
 
 ;;null
 (null? '()) ;;true, #t
-(null? '(1,2)) ;;false, #f
+(null? '(1 2)) ;;false, #f
 
 ;;cdr
 (cdr (cdr '(1 2 3))) ;;pop first two elements off front, return remainder of list
@@ -62,7 +62,7 @@ foo2
     (cond ((null? a-list) 0)
           (#t (+ 1 (length1 (cdr a-list)))))))
 
-(length1 '(1,2,3,4,5))
+(length1 '(1 2 3 4 5))
 
 ;; Higher order functions from cheat sheet
 ;; compose: takes two functions and arg, return (f (g x))
@@ -78,3 +78,41 @@ foo2
 	  (#t (cons (f (car a-list)) (map f (cdr a-list)))))))
 
 (map even? '(1 2 3 4))        ;;=> (#f #t #f #t)
+
+(define factorial 
+  (lambda(x) 
+    (cond ((= x 1) 1)
+     	(#t (* x (factorial (- x 1)))))))
+;(factorial 3)
+
+(define expt1 
+  (lambda(x n) 
+	(cond ((= n 0) 1)
+    		(#t (* x (expt1 x (- n 1)))))))
+;(expt1 2 5)
+
+(define sum
+  (lambda(a)
+    (cond ((= a 0) 0)
+          (#t (+ a (sum (- a 1)))))))
+;(sum 45)
+
+(define dot
+  (lambda(arr1 arr2)
+	  (cond ((and (null? arr1) (null? arr2)) ())
+        
+		(#t 
+         (cons (*(car arr1)(car arr2)) 
+            (dot (cdr arr1) (cdr arr2)))))))
+
+
+(define arr1 '(2 3 4))
+(define arr2 '(2 3 4))
+(dot arr1 arr2)
+;(*(car arr1) (car arr2))
+(cdr '(1 2))
+
+
+(cons (*(car arr1) (car arr2)) '())
+
+(and (null? arr1) (null? arr2))
