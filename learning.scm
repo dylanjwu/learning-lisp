@@ -115,4 +115,53 @@ foo2
 
 (cons (*(car arr1) (car arr2)) '())
 
-(and (null? arr1) (null? arr2))
+(and (null? arr1) (null? arr2)
+
+(define (factorial n)
+  (cond 
+   ((= n 0) 1)
+   (#t (* n (factorial (- n 1))))
+  )
+ )
+(factorial 4)
+
+(define compose 
+  (lambda (f g x)
+    (f (g x))))
+
+(compose (lambda (y) (* y y)) (lambda (x) (+ 3 x)) 3)
+
+(define allEven 
+  (lambda (arr)
+    (cond 
+     ((null? arr) #t)
+     (#t (and (= 0 (modulo (car arr) 2)) (allEven (cdr arr))))
+    )))
+
+(allEven '(3 2 6 4))
+
+(define map1
+  (lambda (arr f)
+  (cond 
+   ((null? arr) '())
+    (#t (cons (f (car arr)) (map1 (cdr arr) f)))
+   )
+ ))
+
+(define func 
+  (lambda (x) 
+    (+ x 10)))
+
+(define arr '(1 2 3 4 5)')
+(map1 arr func)
+
+(define reverse 
+  (lambda (l)
+    (cond
+     ((null? l) 
+      '())
+     (#t (append (reverse (cdr l)) (list (car l))) )
+     )
+    ))
+
+(reverse '(1 2 3 4))
